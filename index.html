@@ -635,6 +635,115 @@
   .reveal { opacity:0; transform:translateY(30px); transition: opacity 0.7s, transform 0.7s; }
   .reveal.visible { opacity:1; transform:translateY(0); }
 
+  /* ============ PROJECTS ============ */
+  #projects { background: var(--bg2); position: relative; overflow: hidden; }
+  #projects::before {
+    content:''; position:absolute; top:-40%; right:-10%; width:600px; height:600px;
+    background: radial-gradient(circle, rgba(0,229,255,0.06), transparent 70%);
+    pointer-events:none;
+  }
+  #projects::after {
+    content:''; position:absolute; bottom:-30%; left:-10%; width:500px; height:500px;
+    background: radial-gradient(circle, rgba(167,139,250,0.06), transparent 70%);
+    pointer-events:none;
+  }
+  .proj-head { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; }
+  .proj-count { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--muted); letter-spacing:0.1em; }
+  .proj-count b { color:var(--accent); font-size:1.4rem; }
+
+  /* filter tabs */
+  .proj-filters { display:flex; gap:0.6rem; flex-wrap:wrap; margin:1.5rem 0 2.5rem; }
+  .proj-filter {
+    font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:0.5rem 1.1rem; background:transparent; color:var(--muted);
+    border:1px solid var(--border); cursor:none; transition:all 0.25s;
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  }
+  .proj-filter:hover { color:var(--accent); border-color:var(--accent); }
+  .proj-filter.on { background:var(--accent); color:var(--bg); border-color:var(--accent); font-weight:500; }
+
+  /* featured project */
+  .proj-featured {
+    position:relative; margin-bottom:2rem; border:1px solid var(--border);
+    background:linear-gradient(135deg, rgba(0,229,255,0.04), rgba(167,139,250,0.03));
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0; overflow:hidden;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    opacity:0; transform:translateY(30px); transition:opacity 0.7s, transform 0.7s;
+  }
+  .proj-featured.visible { opacity:1; transform:translateY(0); }
+  .proj-featured-body { padding:2.6rem; display:flex; flex-direction:column; justify-content:center; }
+  .proj-star { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.2em; color:var(--accent2); text-transform:uppercase; margin-bottom:0.8rem; }
+  .proj-featured-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,4vw,3.2rem); line-height:1; margin-bottom:1rem; }
+  .proj-featured-desc { color:var(--muted); font-size:0.92rem; line-height:1.7; margin-bottom:1.5rem; max-width:46ch; }
+  .proj-featured-visual {
+    position:relative; min-height:300px; overflow:hidden;
+    background:linear-gradient(135deg,#0a0f1a,#131c2e);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .proj-featured-visual .glyph { font-family:'Bebas Neue',sans-serif; font-size:9rem; color:rgba(0,229,255,0.08); line-height:1; }
+  .proj-featured-visual .proj-shot { width:100%; height:100%; object-fit:cover; object-position:top center; transition:transform 0.6s ease; }
+  .proj-featured:hover .proj-featured-visual .proj-shot { transform:scale(1.04); }
+  .proj-featured-visual::after {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(120deg, rgba(0,229,255,0.06), transparent 50%), repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,229,255,0.015) 2px, rgba(0,229,255,0.015) 3px);
+  }
+
+  /* project grid */
+  .proj-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:1.4rem; perspective:1200px; }
+  .proj-card {
+    position:relative; background:var(--surface); border:1px solid var(--border);
+    cursor:none; transform-style:preserve-3d; overflow:hidden;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    opacity:0; translate:0 30px; transition:opacity 0.6s, translate 0.6s, border-color 0.3s;
+    will-change:transform;
+  }
+  .proj-card-inner { padding:1.4rem 1.6rem 1.6rem; }
+  /* thumbnail banner */
+  .proj-thumb { position:relative; height:160px; overflow:hidden; background:#0a0f1a; transform:translateZ(0); }
+  .proj-thumb .proj-shot { width:100%; height:100%; object-fit:cover; object-position:top center; transition:transform 0.5s ease, filter 0.4s; filter:saturate(0.95); }
+  .proj-card:hover .proj-thumb .proj-shot { transform:scale(1.06); filter:saturate(1.1); }
+  .proj-thumb::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom, transparent 40%, rgba(17,24,39,0.85)); pointer-events:none; }
+  .proj-thumb .proj-icon { position:absolute; bottom:-18px; left:16px; z-index:2; background:var(--surface); box-shadow:0 4px 14px rgba(0,0,0,0.4); }
+  .proj-thumb .proj-num { position:absolute; top:12px; right:14px; z-index:2; background:rgba(8,12,20,0.7); padding:3px 9px; backdrop-filter:blur(4px); border:1px solid var(--border); }
+  .proj-card-inner .proj-title { margin-top:0.8rem; }
+  .proj-card.visible { opacity:1; translate:0 0; }
+  .proj-card.hide { display:none; }
+  .proj-card::before {
+    content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.35s; pointer-events:none;
+    background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(0,229,255,0.1), transparent 45%);
+  }
+  .proj-card:hover { border-color:var(--accent); }
+  .proj-card:hover::before { opacity:1; }
+  .proj-card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; transform:translateZ(40px); }
+  .proj-num { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--muted); letter-spacing:0.1em; }
+  .proj-icon {
+    width:46px; height:46px; display:grid; place-items:center; font-size:1.3rem;
+    background:rgba(0,229,255,0.06); border:1px solid var(--border);
+    clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+  }
+  .proj-title { font-family:'Syne',sans-serif; font-weight:800; font-size:1.25rem; margin-bottom:0.6rem; transform:translateZ(30px); }
+  .proj-desc { color:var(--muted); font-size:0.85rem; line-height:1.65; margin-bottom:1.2rem; transform:translateZ(20px); }
+  .proj-tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.3rem; transform:translateZ(20px); }
+  .proj-tag { font-family:'DM Mono',monospace; font-size:0.64rem; color:var(--accent3); padding:0.22rem 0.55rem; background:rgba(167,139,250,0.07); letter-spacing:0.04em; }
+  .proj-links { display:flex; gap:1rem; transform:translateZ(30px); }
+  .proj-link { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--text); display:flex; align-items:center; gap:0.4rem; transition:color 0.25s; cursor:none; }
+  .proj-link:hover { color:var(--accent); }
+  .proj-link.alt:hover { color:var(--accent2); }
+  .proj-link.disabled { color:var(--muted); opacity:0.4; cursor:not-allowed; }
+  .proj-link.disabled:hover { color:var(--muted); }
+  .proj-role { font-family:'DM Mono',monospace; font-size:0.66rem; color:var(--accent); letter-spacing:0.05em; margin-bottom:0.7rem; transform:translateZ(25px); }
+  .proj-featured .proj-star { line-height:1.5; }
+
+  /* 4 per row on desktop; step down on smaller screens */
+  @media (max-width: 1200px) { .proj-grid { grid-template-columns:repeat(3, 1fr); } }
+  @media (max-width: 900px)  { .proj-grid { grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width: 560px)  { .proj-grid { grid-template-columns:1fr; } }
+
+  @media (max-width: 860px) {
+    .proj-featured { grid-template-columns:1fr; }
+    .proj-featured-visual { min-height:200px; order:-1; }
+  }
+
   @media (max-width: 768px) {
     nav { padding: 1.2rem 1.5rem; }
     .nav-links { display: none; }
@@ -661,6 +770,7 @@
   <div class="nav-links">
     <a href="#skills">Skills</a>
     <a href="#experience">Work</a>
+    <a href="#projects">Projects</a>
     <a href="#education">Education</a>
     <a href="#contact">Contact</a>
     <!-- Nav Social Icons -->
@@ -817,6 +927,27 @@
     </div>
 
   </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="proj-head">
+    <div>
+      <div class="section-tag">Selected Work</div>
+      <h2 class="section-title" style="margin-bottom:0">Featured<br>Projects</h2>
+    </div>
+    <div class="proj-count"><b id="projCount">0</b> / projects shipped</div>
+  </div>
+
+  <div class="proj-filters" id="projFilters"><!-- JS injected --></div>
+
+  <!-- featured -->
+  <div class="proj-featured reveal" id="projFeatured"><!-- JS injected --></div>
+
+  <!-- grid -->
+  <div class="proj-grid" id="projGrid"><!-- JS injected --></div>
 </section>
 
 <div class="divider"></div>
@@ -1003,12 +1134,132 @@
     grid.appendChild(el);
   });
 
+  /* ============ PROJECTS ============ */
+  // Real projects. featured:true shows the big card. Leave live/code empty ('') to disable that button.
+  const projects = [
+    { title:'NoKnot', img:'assets/noknot.jpg', icon:'🪢', featured:true, cat:'fullstack', role:'Software Development Engineer · 6 yrs',
+      desc:'An all-in-one business practice management platform for service businesses — scheduling, loyalty, inventory, gift cards and point-of-sale. I build and maintain the front-end, developing new features and connecting the interface to back-end services, including a real-time support chat with presence and read receipts. (Dashboard is under maintenance; public site is live.)',
+      tags:['React','Redux','WebSockets','REST'], live:'https://noknot.au/', code:'' },
+
+    { title:'WTBL', img:'assets/wtbl.jpg', icon:'💧', cat:'fullstack', role:'Full-Stack Developer · Freelance',
+      desc:'Corporate website for Water Technology BD Limited, an industrial water & wastewater treatment company. Built end-to-end — public-facing service, technology and project pages plus the back-end.',
+      tags:['Django','JavaScript','PostgreSQL'], live:'https://wtbl.com.bd/', code:'' },
+
+    { title:'Othoba.com', img:'assets/othoba.jpg', icon:'🛒', cat:'ecommerce', role:'Front-End Developer · Freelance',
+      desc:'A large live e-commerce platform. I owned the entire front-end — page layouts, product browsing, category navigation, search and the overall UI — while a co-worker handled the back-end.',
+      tags:['React','JavaScript','REST'], live:'https://othoba.com/', code:'' },
+
+    { title:'Abbott Fitness', img:'assets/abbott.jpg', icon:'💪', cat:'fullstack', role:'Full-Stack Developer · Freelance',
+      desc:'An online fitness coaching platform — full front-end design plus a Django back-end, including integrating images from social media sources and managing the full site functionality.',
+      tags:['Django','JavaScript','Instagram API'], live:'https://abbottfitnessofficial.com/', code:'' },
+
+    { title:'EduPlatform', img:'assets/eduplatform.jpg', icon:'🎓', cat:'fullstack', role:'Full-Stack Developer · Personal',
+      desc:'A school website & admission portal for South Point School & College — admissions, department info, notices and events, with admin/teacher/student portals. Bilingual (EN/বাংলা). Built completely myself, front-end and back-end.',
+      tags:['React','Django','PostgreSQL','i18n'], live:'https://eduportal-sooty.vercel.app/', code:'' },
+
+    { title:'Italien Specialisten', img:'assets/italien.jpg', icon:'🇮🇹', cat:'frontend', role:'Front-End Developer · Freelance',
+      desc:'A travel and real-estate browsing platform for Italy on a Django back-end — destinations, regions, hotels, and houses for rent or sale. I handled the front-end: layouts, navigation and the public templates.',
+      tags:['React','Django','Templates'], live:'https://myprojects-f3vcxydz6-nayemczs66-4730s-projects.vercel.app/', code:'' },
+
+    { title:'Medical Tourism Italy', img:'assets/medical.jpg', icon:'🏥', cat:'frontend', role:'Front-End Developer · Freelance',
+      desc:'Front-end for a medical tourism company helping international patients access personalized healthcare and treatment paths in Italy — page layouts, navigation and public content sections.',
+      tags:['JavaScript','HTML5','CSS3'], live:'https://www.medicaltourismitaly.com/', code:'' },
+
+    { title:'RC Report', img:'assets/rcreport.jpg', icon:'🚗', cat:'fullstack', role:'Full-Stack Developer · Freelance',
+      desc:'A platform that generates vehicle registration certificate (RC) reports from a vehicle number, on a Django back-end. Built completely myself, front-end and back-end.',
+      tags:['Django','React','REST'], live:'https://myprojects-1doh-mjtg3fo5o-nayemczs66-4730s-projects.vercel.app/free_report', code:'' },
+
+    { title:'Footwear Store', img:'assets/footwear.jpg', icon:'👟', cat:'ecommerce', role:'Full-Stack Developer · Freelance',
+      desc:'An e-commerce storefront demo for a footwear brand — homepage, product browsing and company pages. Built completely myself, front-end and back-end.',
+      tags:['Django','JavaScript','CSS3'], live:'https://myprojects-xndb.vercel.app/', code:'' },
+  ];
+
+  const cats = ['all', ...new Set(projects.map(p => p.cat))];
+  const fWrap = document.getElementById('projFilters');
+  const pGrid = document.getElementById('projGrid');
+  const feat = projects.find(p => p.featured) || projects[0];
+  document.getElementById('projCount').textContent = projects.length;
+
+  // build the Live / Code links; a missing url renders as a disabled button
+  function linkHtml(p, liveLabel, codeLabel) {
+    const live = p.live
+      ? `<a class="proj-link" href="${p.live}" target="_blank" rel="noopener">◆ ${liveLabel}</a>`
+      : `<span class="proj-link disabled" title="Not publicly available">◆ ${liveLabel}</span>`;
+    const code = p.code
+      ? `<a class="proj-link alt" href="${p.code}" target="_blank" rel="noopener">⟨ ⟩ ${codeLabel}</a>`
+      : `<span class="proj-link alt disabled" title="Private / client-owned code">⟨ ⟩ ${codeLabel}</span>`;
+    return live + code;
+  }
+
+  // featured card
+  document.getElementById('projFeatured').innerHTML = `
+    <div class="proj-featured-body">
+      <div class="proj-star">★ Featured Project${feat.role ? ' · ' + feat.role : ''}</div>
+      <div class="proj-featured-title">${feat.title}</div>
+      <p class="proj-featured-desc">${feat.desc}</p>
+      <div class="proj-tags">${feat.tags.map(t=>`<span class="proj-tag">${t}</span>`).join('')}</div>
+      <div class="proj-links">${linkHtml(feat, 'Live Site', 'Source')}</div>
+    </div>
+    <div class="proj-featured-visual">
+      ${feat.img ? `<img class="proj-shot" src="${feat.img}" alt="${feat.title} preview" loading="lazy">` : `<span class="glyph">${feat.icon}</span>`}
+    </div>`;
+
+  // filters
+  cats.forEach((c,i) => {
+    const b = document.createElement('button');
+    b.className = 'proj-filter' + (i===0?' on':'');
+    b.textContent = c;
+    b.dataset.cat = c;
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.proj-filter').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      document.querySelectorAll('.proj-card').forEach(card => {
+        const show = c==='all' || card.dataset.cat===c;
+        card.classList.toggle('hide', !show);
+      });
+    });
+    fWrap.appendChild(b);
+  });
+
+  // grid cards (exclude the featured one from the grid)
+  projects.filter(p=>!p.featured).forEach((p,i) => {
+    const card = document.createElement('div');
+    card.className = 'proj-card';
+    card.dataset.cat = p.cat;
+    card.style.transitionDelay = (i*0.07)+'s';
+    card.innerHTML = `
+      <div class="proj-thumb">
+        ${p.img ? `<img class="proj-shot" src="${p.img}" alt="${p.title} preview" loading="lazy">` : ''}
+        <span class="proj-icon">${p.icon}</span>
+        <span class="proj-num">0${i+1}</span>
+      </div>
+      <div class="proj-card-inner">
+        <h3 class="proj-title">${p.title}</h3>
+        ${p.role ? `<div class="proj-role">${p.role}</div>` : ''}
+        <p class="proj-desc">${p.desc}</p>
+        <div class="proj-tags">${p.tags.map(t=>`<span class="proj-tag">${t}</span>`).join('')}</div>
+        <div class="proj-links">${linkHtml(p, 'Live', 'Code')}</div>
+      </div>`;
+
+    // 3D tilt toward cursor + spotlight position
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      card.style.transform = `rotateY(${(px-0.5)*10}deg) rotateX(${(0.5-py)*10}deg) translateY(-4px)`;
+      card.style.setProperty('--mx', (px*100)+'%');
+      card.style.setProperty('--my', (py*100)+'%');
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    pGrid.appendChild(card);
+  });
+
   // Scroll reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.skill-chip, .edu-card, .exp-card, .reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.skill-chip, .edu-card, .exp-card, .reveal, .proj-card, .proj-featured').forEach(el => observer.observe(el));
 
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
